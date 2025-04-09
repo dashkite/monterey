@@ -1,22 +1,5 @@
 coffee:
   targets:
     - browser
+    - node
 
-# import-map:
-#   map:
-#     imports:
-#       '@dashkite/amen': latest
-#       '@dashkite/assert': latest
-
-pug:
-  targets:
-    browser:
-      - preset: html
-        glob: test/client/index.pug
-    node:
-      - preset: html
-        glob: src/index.pug
-      - preset: js
-        glob:
-          - src/**/*.pug
-          - '!src/index.pug'

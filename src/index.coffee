@@ -1,140 +1,50 @@
 import * as Fn  from "@dashkite/joy/function"
-import { generic }  from "@dashkite/joy/generic"
-import * as Type  from "@dashkite/joy/type"
 import * as Obj  from "@dashkite/joy/object"
-import { events } from "@dashkite/joy/iterable"
+import Generic from "@dashkite/generic"
 import { Router } from "@dashkite/url-router"
-import { navigate } from "@dashkite/navigate"
 import { encode } from "@dashkite/url-codex"
-import { error, relative, isSameOrigin, isCurrentLocation } from "./helpers"
+import { 
+  compact
+  error
+  XRL
+} from "./helpers"
 
-# TODO fall back to 'not found' named route
+class Registry
 
-queue = ->
-  new Promise ( resolve ) ->
-    queueMicrotask resolve
+  @make: ->
+    Object.assign ( new @ ), router: new Router
 
-class PageRouter
-
-  @create: ( ax... ) -> new PageRouter ax...
-
-  constructor: ({ @router, @handlers, @options } = {}) ->
-    @router ?= new Router
-    @handlers ?= {}
-
-  install: ->
-
-    do =>
-      for await url from navigate window
-        @browse { url }
-
-    do =>
-      for await event from events "popstate", window
-        @dispatch
-          url: window.location.href
-          state: event.state
-
-  start: ->
-    loop
-      before = @router.routes.length
-      await do queue
-      after = @router.routes.length
-      if before == after
-        @dispatch url: window.location.href
-        break
-
-  append: ( template, data, handler ) ->
+  append: ( template, data ) ->
     @router.append { template, data }
-    @handlers[data.name] = handler
 
-  prepend: ( template, data, handler ) ->
+  prepend: ( template, data ) ->
     @router.prepend { template, data }
-    @handlers[data.name] = handler
 
-  # convenience / backward compatibility
-  add: ( template, data, handler ) -> 
-    @prepend template, data, handler
+  add: ( template, data ) -> 
+    @prepend template, data
 
-  match: ( path ) -> @router.match path
+  query: do ->
 
-  _normalize: ({ url, path, name, query, parameters, state }) ->
-    path ?= do =>
-      url ?= @link { name, query, parameters }
-      url = if Type.isURL url then url else new URL url
-      relative url
-    url ?= new URL path, window.location.origin
-    { 
-      url, path, state 
-      isSameOrigin: isSameOrigin url
-      isCurrentLocation: isCurrentLocation url
-    }
+    ( Generic.make "montery::query" )
 
-  normalize: ( context ) ->
-    if context.isSameOrigin?
-      context
-    else @_normalize context
-    
-  dispatch: ( context, store ) ->
-    context = @normalize context
-    { path } = context
-    if !( result = @match path )?
-      throw error "dispatch: no matching route for [#{ path }]"
-    else
-      { data, bindings } = result
-      try
-        @handlers[data.name] { path, data, bindings }, store
-      catch _error
-        console.warn _error
-        throw error "handler failed for [#{ path }]"
+      .define [ Object ], ( query ) ->
+        @router.routes.find ( page ) ->
+           Obj.query query, page.data
 
-  # TODO remove parameters that are empty strings
-  link: ({ name, query, parameters }) ->
-    query ?= { name }
-    origin = window.location.href    
-    route = @router.routes.find ( route ) -> Obj.query query, route.data
-    if route?
-      path = encode route.template, ( parameters ? {} )  
+      .define [ URL ], ( url ) ->
+        @router.match XRL.target target
+
+      .define [ String ], ( target ) ->
+        @query target
+
+  link: ({ query, bindings }) ->
+    if ( page = @query query )?
+      origin = window.location.href    
+      path = encode page.template, compact bindings
       new URL path, origin
     else
-      console.warn "no matching route for query", query
-      new URL "/", origin
-
-  push: ( context ) ->
-    context = @normalize context
-    window.history.pushState context.state, "", context.path
-
-  replace: ( context ) ->
-    context = @normalize context
-    window.history.replaceState context.state, "", context.path
-
-  browse: ( context ) ->
-    context = @normalize context
-    if context.isCurrentLocation
-      return
-    else if !context.isSameOrigin
-      window.open context.url.href
-    else
-      @push context
-      @dispatch context
-
-  # TODO should redirect open external links in a new tab
-  #      as we do with browse?
-  redirect: ( context ) ->
-    context = @normalize context
-    if context.isCurrentLocation
-      return
-    else if !context.isSameOrigin
-      window.open context.url.href
-    else
-      @replace context
-      @dispatch context
+      console.warn error "not found"
+      console.warn query
+      throw error "not found"
   
-
-# add convenience class methods
-for name in ( Object.getOwnPropertyNames PageRouter:: )
-  if name != "constructor"
-    value = PageRouter::[ name ]
-    if Type.isFunction value
-      PageRouter[ name ] ?= Fn.detach value
-
-export default PageRouter
+export default Registry

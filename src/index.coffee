@@ -25,17 +25,20 @@ class Registry
 
   query: do ->
 
-    ( Generic.make "montery::query" )
+    ( Generic.make "monterey::query" )
 
       .define [ Object ], ( query ) ->
         @router.routes.find ( page ) ->
            Obj.query query, page.data
 
       .define [ URL ], ( url ) ->
-        @router.match XRL.target target
+        @router.match XRL.target url
+
+      .define [ Location ], ( url ) ->
+        @router.match XRL.target url
 
       .define [ String ], ( target ) ->
-        @query target
+        @query XRL.make target
 
   link: ({ query, bindings }) ->
     if ( page = @query query )?

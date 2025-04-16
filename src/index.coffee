@@ -40,7 +40,7 @@ class Registry
       .define [ String ], ( target ) ->
         @query XRL.make target
 
-  link: ({ query, bindings }) ->
+  link: ({ query..., bindings }) ->
     if ( page = @query query )?
       origin = window.location.href    
       path = encode page.template, compact bindings

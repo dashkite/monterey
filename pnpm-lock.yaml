@@ -48,6 +48,9 @@ importers:
       '@dashkite/genie-watch':
         specifier: link:../genie-watch
         version: link:../genie-watch
+      '@dashkite/vista':
+        specifier: link:../vista
+        version: link:../vista
 
 packages:
 

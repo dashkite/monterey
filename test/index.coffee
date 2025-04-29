@@ -3,8 +3,6 @@ import { test, success } from "@dashkite/amen"
 import print from "@dashkite/amen-console"
 import $ from "../src"
 
-# TODO mock window.location 
-#      blocks remaining tests
 
 do ->
 

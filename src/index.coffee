@@ -49,5 +49,10 @@ class Registry
       console.warn error "not found"
       console.warn query
       throw error "not found"
+
+  navigate: ( target ) ->
+    navigation.navigate @link name: "edit gadget"
+
+
   
 export default Registry

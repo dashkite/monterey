@@ -46,12 +46,12 @@ class Registry
       path = encode page.template, compact bindings
       new URL path, origin
     else
-      console.warn error "not found"
+      console.warn error "page not found"
       console.warn query
       throw error "not found"
 
   navigate: ( target ) ->
-    navigation.navigate @link name: "edit gadget"
+    navigation.navigate @link target
 
 
   

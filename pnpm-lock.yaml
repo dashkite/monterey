@@ -12,11 +12,11 @@ importers:
         specifier: link:../generic
         version: link:../generic
       '@dashkite/joy':
-        specifier: link:../joy
-        version: link:../joy
+        specifier: 0.5.0
+        version: 0.5.0
       '@dashkite/url-codex':
-        specifier: link:../url-codex
-        version: link:../url-codex
+        specifier: 0.2.0
+        version: 0.2.0
       '@dashkite/url-router':
         specifier: 0.2.0
         version: 0.2.0
@@ -878,6 +878,9 @@ packages:
   '@dashkite/joy@0.3.16':
     resolution: {integrity: sha512-dsU0us4j1Pb+zceoBvLbnZ2PbmULkJUtM2vtWLxKmoc1DE4w9SVTiPTe6JWvF0A0vk90ldv+Lc9qEA5x3O+DtQ==}
 
+  '@dashkite/joy@0.5.0':
+    resolution: {integrity: sha512-kaDNKKS6v5r3vukOkh54aarrhiTHwbcKZZW8eDav5FhT6u8RRrmSaFeAbwLzGntdPScaEhqg/PLrvtPHOy9OlQ==}
+
   '@dashkite/kaiko@0.3.3':
     resolution: {integrity: sha512-XnAvVr9y2MsDqMLr4A24vkLF7Iuq3E8RjHEEpqhe29P5NevVX9jXKcXUStNMp9MSJbjHd2pqUNiM5Vvdja9ggg==}
 
@@ -904,6 +907,9 @@ packages:
 
   '@dashkite/url-codex@0.1.1':
     resolution: {integrity: sha512-+uZ+JZEZdRAAHj8s+K/C8lNgc5C/Egae2ret7e1t0JtNeE7dCwRsLkKPtIG6gelX3+ebV0dD54khiLgs2L3JlA==}
+
+  '@dashkite/url-codex@0.2.0':
+    resolution: {integrity: sha512-12m6YzdBEP3Rb0QGTMv1cTw4KLO37VW3HDHuUQV7QJQOGRzvS5+iQqXLkhfDJBqRC4oc1t9+iQ/6PEUtYXXArw==}
 
   '@dashkite/url-router@0.2.0':
     resolution: {integrity: sha512-9rTJy3tl82EMC/dZ9w4xZN9mjhFQg46NO3h6xMsBkh06P7a//iDbThyh3gjE2uSwRMiyJ69nLqiHtGq9zQpZMA==}
@@ -3927,6 +3933,8 @@ snapshots:
 
   '@dashkite/joy@0.3.16': {}
 
+  '@dashkite/joy@0.5.0': {}
+
   '@dashkite/kaiko@0.3.3': {}
 
   '@dashkite/masonry-coffee@0.2.0':
@@ -3985,6 +3993,11 @@ snapshots:
   '@dashkite/url-codex@0.1.1':
     dependencies:
       '@dashkite/joy': 0.3.16
+      '@dashkite/parse': 0.4.3
+
+  '@dashkite/url-codex@0.2.0':
+    dependencies:
+      '@dashkite/joy': 0.5.0
       '@dashkite/parse': 0.4.3
 
   '@dashkite/url-router@0.2.0':

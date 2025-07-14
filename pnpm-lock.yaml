@@ -18,8 +18,8 @@ importers:
         specifier: link:../url-codex
         version: link:../url-codex
       '@dashkite/url-router':
-        specifier: link:../url-router
-        version: link:../url-router
+        specifier: 0.2.0
+        version: 0.2.0
     devDependencies:
       '@dashkite/amen':
         specifier: ^0.2.0
@@ -901,6 +901,12 @@ packages:
 
   '@dashkite/parse@0.4.3':
     resolution: {integrity: sha512-bE0kBjaGYjUnCzWJelQnx8vsfJ9YP07aRTVFZoY7TZWvMmnihoCSugL4IVWAOA2O0EAZXjT8FcjA4bNJ/BQwwg==}
+
+  '@dashkite/url-codex@0.1.1':
+    resolution: {integrity: sha512-+uZ+JZEZdRAAHj8s+K/C8lNgc5C/Egae2ret7e1t0JtNeE7dCwRsLkKPtIG6gelX3+ebV0dD54khiLgs2L3JlA==}
+
+  '@dashkite/url-router@0.2.0':
+    resolution: {integrity: sha512-9rTJy3tl82EMC/dZ9w4xZN9mjhFQg46NO3h6xMsBkh06P7a//iDbThyh3gjE2uSwRMiyJ69nLqiHtGq9zQpZMA==}
 
   '@dashkite/zephyr@0.2.0':
     resolution: {integrity: sha512-l3Fm9nyOIp1yBnv4IzGOKVgo1/UucU5WLvsqAfcP2jEVlE4AgpPkODssyloxTyC3N+bhcz1DXqC/7KokI1eVjA==}
@@ -3975,6 +3981,16 @@ snapshots:
   '@dashkite/parse@0.4.3':
     dependencies:
       '@dashkite/joy': 0.3.16
+
+  '@dashkite/url-codex@0.1.1':
+    dependencies:
+      '@dashkite/joy': 0.3.16
+      '@dashkite/parse': 0.4.3
+
+  '@dashkite/url-router@0.2.0':
+    dependencies:
+      '@dashkite/joy': 0.3.16
+      '@dashkite/url-codex': 0.1.1
 
   '@dashkite/zephyr@0.2.0':
     dependencies:

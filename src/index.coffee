@@ -31,6 +31,11 @@ class Registry
         @router.routes.find ( page ) ->
            Obj.query query, page.data
 
+      .define [ Obj.has "name" ], ({ name, rest... }) ->
+        @router.routes.find ( page ) ->
+          if ( page.data.name == name ) || ( page.data.aliases?.includes name )
+            Obj.query rest, page.data
+
       .define [ URL ], ( url ) ->
         @router.match XRL.target url
 

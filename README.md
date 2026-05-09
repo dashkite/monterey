@@ -1,4 +1,6 @@
 # Oxygen
+
+[![Hippocratic License HL3-CORE](https://img.shields.io/static/v1?label=Hippocratic%20License&message=HL3-CORE&labelColor=5e2751&color=bc8c3d)](https://firstdonoharm.dev/version/3/0/core.html)
 Browser-friendly URL-template-based routing.
 
 Oxgen maps an [RFC 6570 URL template](https://tools.ietf.org/html/rfc6570) to a function.

@@ -1,6 +1,6 @@
 {
   "name": "@dashkite/monterey",
-  "version": "0.13.32",
+  "version": "0.13.33",
   "description": "Browser-friendly URL-template-based routing",
   "keywords": [
     "page",
